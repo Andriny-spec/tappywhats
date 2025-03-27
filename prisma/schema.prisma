@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  ASSINANTE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(ASSINANTE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamento com Profile
+  profile   Profile?
+
+  @@map("users")
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  name        String
+  whatsapp    String   @unique
+  photo       String?
+  bio         String?
+  address     String?
+  city        String?
+  state       String?
+  
+  // Configurações do WhatsApp
+  welcomeMessage String?
+  awayMessage    String?
+  businessHours  String?
+  tags          String[]
+  
+  // Métricas
+  messagesSent     Int      @default(0)
+  messagesReceived Int      @default(0)
+  conversions      Int      @default(0)
+  
+  // Integrações
+  webhookUrl       String?
+  apiKey          String?   @unique @default(cuid())
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamento com User
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}

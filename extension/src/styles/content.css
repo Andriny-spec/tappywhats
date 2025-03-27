@@ -1,0 +1,1474 @@
+/* Barra lateral com ícones */
+.tappy-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid #e1e1e1;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Container dos ícones */
+.tappy-icons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Estilo dos ícones */
+.tappy-icon {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  color: #54656f;
+  transition: all 0.2s ease;
+}
+
+.tappy-icon:hover {
+  background: #f0f2f5;
+  color: #00a884;
+}
+
+.tappy-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+
+/* Tooltip */
+.tappy-icon[data-tip]:hover:before {
+  content: attr(data-tip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-left: 8px;
+  z-index: 1000;
+}
+
+.tappy-icon[data-tip]:hover:after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-right-color: #333;
+  margin-left: -4px;
+  z-index: 1000;
+}
+
+/* Animações */
+@keyframes modalShow {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modalHide {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Modais */
+.tappy-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 24px;
+}
+
+.tappy-modal-content {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+  border-radius: 24px;
+  width: 90%;
+  max-width: 520px;
+  position: relative;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 12px 24px rgba(0, 0, 0, 0.05),
+    0 24px 48px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  opacity: 1;
+  animation: modalEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tappy-modal-header {
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tappy-modal-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.tappy-modal-close {
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.04);
+  border: none;
+  color: #64748b;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.tappy-modal-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+
+/* Conteúdo do Modal */
+.tappy-modal-content > p {
+  color: #475569;
+  margin: 0;
+  padding: 24px 32px;
+  font-size: 15px;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Modal API */
+.tappy-modal-section {
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease;
+}
+
+.tappy-modal-section:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.tappy-modal-section:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+.tappy-button {
+  background: #00a884;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 2px 8px rgba(0, 168, 132, 0.2);
+}
+
+.tappy-button:hover {
+  background: #008f72;
+  transform: translateY(-1px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 4px 16px rgba(0, 168, 132, 0.25);
+}
+
+.tappy-button:active {
+  transform: translateY(0);
+}
+
+.tappy-button-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  color: #64748b;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-button-icon:hover {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: rgba(0, 168, 132, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 2px 8px rgba(0, 168, 132, 0.1);
+}
+
+/* Toggle Switch */
+.tappy-toggle {
+  position: relative;
+  width: 52px;
+  height: 32px;
+}
+
+.tappy-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tappy-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e2e8f0;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 32px;
+}
+
+.tappy-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tappy-toggle input:checked + .tappy-toggle-slider {
+  background-color: #00a884;
+}
+
+.tappy-toggle input:checked + .tappy-toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Modal Webhook */
+.tappy-integrations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 16px;
+  padding: 24px 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tappy-integration-icon {
+  aspect-ratio: 1;
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-integration-icon:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(0, 168, 132, 0.4);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    0 2px 4px rgba(0, 168, 132, 0.1);
+}
+
+.tappy-webhook-section {
+  padding: 24px 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tappy-webhook-section:last-child {
+  border-bottom: none;
+}
+
+.tappy-webhook-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.01em;
+}
+
+.tappy-events-list,
+.tappy-data-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.tappy-event-item,
+.tappy-field-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tappy-event-item:hover,
+.tappy-field-item:hover {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.tappy-webhook-section input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  background: white;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-webhook-section input[type="text"]:focus {
+  outline: none;
+  border-color: rgba(0, 168, 132, 0.4);
+  box-shadow: 
+    0 0 0 4px rgba(0, 168, 132, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-webhook-section input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.tappy-webhook-section input[type="checkbox"]:checked {
+  background-color: #00a884;
+  border-color: #00a884;
+}
+
+.tappy-webhook-section input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.tappy-webhook-section input[type="checkbox"]:hover {
+  border-color: #cbd5e1;
+}
+
+.tappy-webhook-section input[type="checkbox"]:checked:hover {
+  background-color: #008f72;
+  border-color: #008f72;
+}
+
+.tappy-webhook-section label {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tappy-webhook-section label:hover {
+  color: #0f172a;
+}
+
+/* Botões */
+.tappy-button {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  gap: 8px;
+  background: white;
+  border: 1px solid #e1e1e1;
+  color: #111b21;
+}
+
+.tappy-button:hover {
+  background: #f0f2f5;
+  border-color: #d1d5db;
+}
+
+.tappy-button.primary {
+  background: #00a884;
+  border: none;
+  color: white;
+}
+
+.tappy-button.primary:hover {
+  background: #008f6f;
+}
+
+.tappy-button-icon {
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 8px;
+  color: #54656f;
+  background: transparent;
+  border: 1px solid #e1e1e1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tappy-button-icon:hover {
+  background: #f0f2f5;
+  color: #111b21;
+}
+
+/* Toggle Switch */
+.tappy-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.tappy-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tappy-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e1e1e1;
+  transition: .2s;
+  border-radius: 24px;
+}
+
+.tappy-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .2s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tappy-toggle input:checked + .tappy-toggle-slider {
+  background-color: #00a884;
+}
+
+.tappy-toggle input:checked + .tappy-toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Webhook Específico */
+.tappy-integrations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 16px;
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+
+.tappy-integration-icon {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e1e1e1;
+}
+
+.tappy-integration-icon:hover {
+  background: white;
+  border-color: #00a884;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.tappy-webhook-section {
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+
+.tappy-webhook-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111b21;
+  margin-bottom: 16px;
+}
+
+.tappy-events-list,
+.tappy-data-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.tappy-event-item,
+.tappy-field-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.tappy-event-item:hover,
+.tappy-field-item:hover {
+  background: #f0f2f5;
+}
+
+.tappy-webhook-section input[type="text"] {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.tappy-webhook-section input[type="text"]:focus {
+  outline: none;
+  border-color: #00a884;
+  box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
+}
+
+.tappy-webhook-section input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e1e1e1;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.tappy-webhook-section input[type="checkbox"]:checked {
+  background-color: #00a884;
+  border-color: #00a884;
+}
+
+.tappy-webhook-section input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.tappy-webhook-section label {
+  font-size: 14px;
+  color: #111b21;
+  cursor: pointer;
+}
+
+/* Formulários */
+.tappy-form-group {
+  margin-bottom: 16px;
+  padding: 0 20px;
+}
+
+.tappy-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #111b21;
+  font-size: 14px;
+}
+
+.tappy-form-group input,
+.tappy-form-group select,
+.tappy-form-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e9e9e9;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111b21;
+  transition: border-color 0.2s;
+}
+
+.tappy-form-group input:focus,
+.tappy-form-group select:focus,
+.tappy-form-group textarea:focus {
+  border-color: #00a884;
+  outline: none;
+}
+
+.tappy-phone-input {
+  display: flex;
+  gap: 8px;
+}
+
+.tappy-phone-input select {
+  width: auto;
+}
+
+/* Toggles */
+.tappy-feature-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.tappy-feature-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tappy-badge {
+  background: #e9f9f6;
+  color: #00a884;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.tappy-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.tappy-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tappy-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.tappy-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.tappy-switch input:checked + .tappy-slider {
+  background-color: #00a884;
+}
+
+.tappy-switch input:checked + .tappy-slider:before {
+  transform: translateX(20px);
+}
+
+/* Tabs */
+.tappy-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.tappy-tabs button {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: #54656f;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tappy-tabs button.active {
+  background: #e9f9f6;
+  color: #00a884;
+}
+
+/* Kanban */
+.tappy-kanban {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.tappy-kanban-column {
+  flex: 1;
+  min-width: 250px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.tappy-kanban-column h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.tappy-kanban-items {
+  min-height: 200px;
+  background: white;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+/* Ajuste do WhatsApp Web */
+#app {
+  margin-left: 60px;
+  width: calc(100% - 60px) !important;
+}
+
+/* Empty States */
+.tappy-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.tappy-empty-state svg {
+  width: 80px;
+  height: 80px;
+  color: #00a884;
+  opacity: 0.9;
+  margin-bottom: 16px;
+}
+
+.tappy-empty-state h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111b21;
+  margin: 0 0 8px 0;
+}
+
+.tappy-empty-state p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* Follow Up Modal */
+.tappy-followup-form {
+  padding: 24px 32px;
+}
+
+.tappy-form-group {
+  margin-bottom: 24px;
+}
+
+.tappy-form-group:last-child {
+  margin-bottom: 0;
+}
+
+.tappy-form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.tappy-form-group input[type="text"],
+.tappy-form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  font-size: 14px;
+  background: white;
+  transition: all 0.2s ease;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-form-group input[type="text"]:focus,
+.tappy-form-group textarea:focus {
+  outline: none;
+  border-color: rgba(0, 168, 132, 0.4);
+  box-shadow: 
+    0 0 0 4px rgba(0, 168, 132, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-accordion {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background: white;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.tappy-accordion:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-accordion-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.tappy-accordion-header:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.tappy-accordion-header h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tappy-accordion-content {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f8fafc;
+}
+
+/* Status Modal */
+.tappy-status-options {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 0 32px;
+}
+
+.tappy-status-option {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s ease;
+  color: #64748b;
+}
+
+.tappy-status-option:hover {
+  background: #f8fafc;
+  border-color: rgba(0, 168, 132, 0.4);
+  color: #0f172a;
+  transform: translateY(-1px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.tappy-status-option.active {
+  background: #00a884;
+  border-color: #00a884;
+  color: white;
+}
+
+.tappy-status-option svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tappy-status-upload {
+  padding: 32px;
+  border: 2px dashed rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  margin: 0 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f8fafc;
+}
+
+.tappy-status-upload:hover {
+  border-color: rgba(0, 168, 132, 0.4);
+  background: white;
+}
+
+.tappy-status-upload svg {
+  width: 32px;
+  height: 32px;
+  color: #64748b;
+}
+
+.tappy-status-upload p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.tappy-status-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f8fafc;
+}
+
+.tappy-status-schedule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tappy-status-schedule label {
+  font-size: 14px;
+  color: #64748b;
+  cursor: pointer;
+}
+
+/* Central de Agendamentos */
+.tappy-schedule {
+  display: flex;
+  height: 600px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tappy-calendar {
+  flex: 1;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tappy-calendar-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tappy-calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tappy-calendar-nav h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.tappy-months {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  background: #00a884;
+  color: #fff;
+}
+
+.tappy-months button {
+  padding: 8px 16px;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tappy-months button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tappy-months button.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 500;
+}
+
+.tappy-calendar-grid {
+  padding: 16px;
+  flex: 1;
+}
+
+.tappy-calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tappy-calendar-weekdays div {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.tappy-calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.tappy-schedule-panel {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tappy-schedule-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tappy-schedule-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.tappy-schedule-list {
+  flex: 1;
+  padding: 16px;
+}
+
+/* Auto Atendimento */
+.tappy-auto-attend {
+  width: 100%;
+  max-width: 600px;
+}
+
+.tappy-auto-attend-form {
+  padding: 24px;
+}
+
+.tappy-form-section {
+  margin-top: 24px;
+}
+
+.tappy-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.tappy-section-header h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.tappy-auto-attend .tappy-empty-state {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.tappy-auto-attend .tappy-empty-state svg {
+  color: #00a884;
+  margin-bottom: 16px;
+}
+
+.tappy-auto-attend .tappy-empty-state h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.tappy-auto-attend .tappy-empty-state p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.tappy-auto-attend .tappy-button.primary {
+  background: #00a884;
+  color: #fff;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tappy-auto-attend .tappy-button.primary:hover {
+  background: #008f72;
+}
+
+.tappy-auto-attend .tappy-button.outline {
+  background: transparent;
+  border: 1px solid #00a884;
+  color: #00a884;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tappy-auto-attend .tappy-button.outline:hover {
+  background: rgba(0, 168, 132, 0.1);
+}
+
+.tappy-form-footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Envio em Massa */
+.tappy-bulk-send {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tappy-bulk-send-header {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tappy-bulk-send-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.tappy-bulk-send-content {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+}
+
+.tappy-bulk-send-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tappy-bulk-send-right {
+  width: 300px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.tappy-bulk-send h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.tappy-filter-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tappy-filter-tabs button {
+  padding: 12px 16px;
+  text-align: left;
+  background: #fff;
+  border: none;
+  border-radius: 4px;
+  color: #1a1a1a;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tappy-filter-tabs button.active {
+  background: #00a884;
+  color: #fff;
+}
+
+.tappy-filter-tabs button:hover:not(.active) {
+  background: #f5f5f5;
+}
+
+.tappy-search-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.tappy-search-bar input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.tappy-search-bar input:focus {
+  outline: none;
+  border-color: #00a884;
+  box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.1);
+}
+
+.tappy-contact-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tappy-tag {
+  padding: 4px 12px;
+  background: #f5f5f5;
+  border-radius: 16px;
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tappy-tag:hover {
+  background: #e0e0e0;
+}
+
+.tappy-tag span {
+  background: #fff;
+  color: #00a884;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.tappy-contact-list {
+  flex: 1;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.tappy-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+}
+
+.tappy-contact-item:hover {
+  background: #f5f5f5;
+}
+
+.tappy-contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tappy-contact-name {
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.tappy-contact-number {
+  font-size: 12px;
+  color: #666;
+}
+
+.tappy-bulk-send .tappy-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: #ffd700;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.tappy-bulk-send .tappy-empty-state svg {
+  color: #1a1a1a;
+}
+
+.tappy-bulk-send .tappy-empty-state p {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.tappy-button.primary {
+  background: #00a884;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tappy-button.primary:hover {
+  background: #008f72;
+}
+
+.tappy-button.outline {
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  color: #666;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tappy-button.outline:hover {
+  background: #f5f5f5;
+}

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "TappyWhats",
+  "version": "1.0.0",
+  "description": "TappyWhats Extension",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "TappyWhats"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "css": ["content.css"],
+      "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "crm/src/*"
+      ],
+      "matches": ["https://web.whatsapp.com/*"]
+    }
+  ],
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}
