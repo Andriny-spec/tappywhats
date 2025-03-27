@@ -103,7 +103,7 @@ export function Header() {
                 <div 
                   key={item.id || item.label}
                   className="relative"
-                  onMouseEnter={() => item.hasSubmenu && handleMouseEnter(item.id)}
+                  onMouseEnter={() => item.hasSubmenu && item.id && handleMouseEnter(item.id)}
                   onMouseLeave={handleMouseLeave}
                 >
                   <Link
